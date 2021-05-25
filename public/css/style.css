@@ -1021,6 +1021,14 @@ line-height: 85px;
 padding-bottom: 45px;
 font-weight: bold;
 }
+.text-bg h2 {
+    color: #253457;    
+padding-top: 12px;
+font-size: 51px;
+line-height: 63px;
+padding-bottom: 30px;
+font-weight: bold;
+}
  .text-bg p {
      font-size: 20px;
      display: block;

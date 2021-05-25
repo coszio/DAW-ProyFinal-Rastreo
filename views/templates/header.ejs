@@ -18,10 +18,10 @@
             <div class="limit-box">
               <nav class="main-menu ">
                 <ul class="menu-area-main">
-                  <li class="active"> <a href="/">Inicio</a> </li>
-                  <li> <a href="#vegetable">Rastreo</a> </li>
+                  <li class="<%= (active_tab=='inicio') ? 'active':'' %>"> <a href="/">Inicio</a> </li>
+                  <li class="<%= (active_tab=='rastreo') ? 'active':'' %>"> <a href="/rastreo">Rastreo</a> </li>
                  
-                 <!-- <li> <a href="#"><img src="icon/icon_b.png" alt="#" /></a></li> -->
+                 <li> <a href="#"><img src="icon/icon_b.png" alt="#" /></a></li>
                  </ul>
                </nav>
              </div>

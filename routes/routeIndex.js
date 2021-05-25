@@ -10,4 +10,7 @@ router.get('/', async function (req, res) {
 
 });
 
+router.get('/rastreo', async(req, res) => {
+    res.render('rastreo');
+})
 module.exports = router;

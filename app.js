@@ -17,12 +17,13 @@ app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
-app.set(express.static('public'));
+app.use(express.static('public'));
 
 
 // routes
 app.use('/', indexRoutes);
 
+// initialize
 app.listen(app.get('port'), () => {
     console.log('Listening on port: ' + app.get('port'));
 })
