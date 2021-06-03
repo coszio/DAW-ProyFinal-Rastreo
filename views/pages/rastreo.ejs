@@ -28,21 +28,19 @@
                 <div class="row">
                   <div class="col-lg-4 col-md-12">
                     <div class="text-bg">
-                      <h2>Seguimiento de gatas</h2>
-                      <form class="Seguimiento">
-                            <input class="Seguimiento_fom" placeholder="Apellido" type="text" name="Cliente">
-                            <input class="Seguimiento_fom" placeholder="# de pedido" type="text" name="Pedido">
-                            <button class="Search_btn">Buscar</button>
-                        </form>
+                      <h2>Seguimiento de reparaciones</h2>
+
+                      <%- include('../templates/formulario-rastreo') %> 
+
                     </div>
                 </div>
                 <div class="col-lg-7 col-lg-offset-1 col-md-12">
                     <div class="text-bg">
                         <p> </p>
-                        <p>Cliente: <%# `${pedido.nombre} ${pedido.apellido}` %> </p>
-                        <p>Zapatos: <%# `${pedido.marca} ${pedido.modelo}` %> </p>
-                        <p>Talla: <%# pedido.talla} %> </p>
-                        <p>Estatus: <%# pedido.estatus %> </p>
+                        <p>Cliente: <%= `${pedido.nombre} ${pedido.apellido}` %> </p>
+                        <p>Zapatos: <%= `${pedido.marca} ${pedido.modelo}` %> </p>
+                        <p>Talla: <%= pedido.talla %> </p>
+                        <p>Estatus: <%= pedido.estatus %> </p>
                         <p>Estimado de entrega: <%# estimado %> </p>
                     </div>
                 </div>

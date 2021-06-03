@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+require('./data/connection')
+
 // importing routes
 const indexRoutes = require('./routes/routeIndex');
 

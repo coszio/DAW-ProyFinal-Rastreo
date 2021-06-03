@@ -28,18 +28,15 @@
           <div class="carousel-item active">
 
             <div class="container-fluid padding_dd">
-              <div class="carousel-caption">
                 <div class="row">
                   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="text-bg">
                      <span>Te damos la bienvenida a Dr. Gatas</span>
-                      <h1>Seguimiento de gatas</h1>
+                      <h1>Seguimiento de reparaciones</h1>
                       <p>Introduce aqui tu nombre y numero de pedido para consultar el estatus actual de tus gatas </p>
-                      <form class="Seguimiento">
-                            <input class="Seguimiento_fom" placeholder="Apellido" type="text" name=" Cliente">
-                            <input class="Seguimiento_fom" placeholder="# de pedido" type="text" name=" Pedido">
-                            <button class="Search_btn">Buscar</button>
-                        </form>
+                      
+                      <%- include('../templates/formulario-rastreo') %> 
+                      
                     </div>
                   </div>
                   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
@@ -48,7 +45,6 @@
                     </div>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
