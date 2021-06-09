@@ -34,16 +34,19 @@
 
                     </div>
                 </div>
-                <div class="col-lg-7 col-lg-offset-1 col-md-12">
-                    <div class="text-bg">
-                        <p> </p>
-                        <p>Cliente: <%= `${pedido.nombre} ${pedido.apellido}` %> </p>
-                        <p>Zapatos: <%= `${pedido.marca} ${pedido.modelo}` %> </p>
-                        <p>Talla: <%= pedido.talla %> </p>
-                        <p>Estatus: <%= pedido.estatus %> </p>
-                        <p>Estimado de entrega: <%# estimado %> </p>
+                <% if (typeof pedido != 'undefined') { %>
+                 
+                    <div class="col-lg-7 col-lg-offset-1 col-md-12">
+                        <div class="text-bg">
+                            <p> </p>
+                            <p>Cliente: <%= `${pedido.nombre} ${pedido.apellido}` %> </p>
+                            <p>Zapatos: <%= `${pedido.marca} ${pedido.modelo}` %> </p>
+                            <p>Talla: <%= pedido.talla %> </p>
+                            <p>Estatus: <%= pedido.estatus %> </p>
+                            <p>Estimado de entrega: <%# estimado %> </p>
+                        </div>
                     </div>
-                </div>
+                <% } %>
                 </div>
             </div>
           

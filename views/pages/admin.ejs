@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        
+        <!-- site metas -->
+        <title>Administracion de pedidos</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <%- include('../templates/head-content') %> 
+        <script defer>
+            if (success) {
+                alert('Pedido agregado exitosamente')
+            }
+        </script>
+
+</head>
+<!-- body -->
+
+<body class="main-layout">
+
+    <%- include('../templates/loader') %> 
+    <!-- header -->
+
+    <%- include ('../templates/header' , {active_tab: 'admin'}) %> 
+    
+
+     <!-- end header -->
+     
+
+            <div class="container-fluid padding_dd">
+                <div class="row">
+                 
+                    <div class="col"></div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="text-bg">
+                            <h2>Nuevo Pedido</h2>
+                        </div>
+
+                        <form action="/admin" method="POST" class="Seguimiento">
+                            <input class="Seguimiento_fom" placeholder="Nombre" type="text" name="nombre">
+                            <input class="Seguimiento_fom" placeholder="Apellido" type="text" name="apellido">
+                            <input class="Seguimiento_fom" placeholder="Email" type="text" name="email">
+                            <br>
+                            <br>
+                            <h3 for="buzon">Buzón:</h3>
+                            <select class="nice-select Seguimiento_fom" name="buzon" id="buzon">
+                                <option value="RockCamp">RockCamp</option>
+                                <option value="Sierra Elevation">Sierra Elevation</option>
+                                <option value="Pico Norte">Pico Norte</option>
+                                <option value="Delta">Delta</option>
+                                <option value="Mad Complex">Mad Complex</option>
+                            </select> 
+                            <br>
+                            <br>
+                            <h3>Zapatos:</h3>
+                            <input class="Seguimiento_fom" placeholder="Marca" type="text" name="marca">
+                            <input class="Seguimiento_fom" placeholder="Modelo" type="text" name="modelo">
+                            <input class="Seguimiento_fom" placeholder="Talla EUR" type="text" name="talla">
+                            <input class="Seguimiento_fom" placeholder="# de pedido" type="text" name="num_pedido">
+                            <input class="Seguimiento_fom" placeholder="Comentario cliente" type="text" name="comentario_cliente">
+                            <input class="Seguimiento_fom" placeholder="Comentario resolador" type="text" name="comentario_resolador">
+                            <br>
+                            <br>
+                            <h3>Servicio:</h3>
+                            <p for="material_suela">Material Suela:</p>
+                            <select class="Seguimiento_fom" id="material_suela" name="material_suela">
+                                <option value="madrock">Mad Rock</option>
+                                <option value="davos">Davos</option>
+                            </select>
+                            <br>
+                            <p>
+                            <label><input type="checkbox" checked disabled class="Seguimiento_fom" name="resolado">Resolado</label>
+                            </p>
+                            <p>
+                                Servicio Adicional:<br>
+                                <label><input type="radio" name="servicioextra" value="cambio_de_liga"> Cambio de liga</label><br>
+                                <label><input type="radio" name="servicioextra" value="parche"> Parche</label><br>
+                                <label><input aria-checked="true" type="radio" name="servicioextra" value="ninguno"> Ninguno </label>
+                            </p>
+                            <button class="Search_btn">Agregar</button>
+                        </form>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+          
+</header>
+
+
+
+    <!--  footer -->
+<%- include ('../templates/footer') %> 
+    <!-- end footer -->
+<%- include('../templates/js-files') %> 
+
+</body>
+
+</html>

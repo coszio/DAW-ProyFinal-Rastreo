@@ -75,5 +75,51 @@ router.post('/rastreo',
             
         }
     
+    });
+router.get('/admin', (req, res) => {
+    res.render('admin');
 })
+
+router.post('/admin',
+    body('num_pedido', 'El numero de pedido debe tener 5 digitos').isAlphanumeric().isLength(5).notEmpty(),
+    body('nombre').isAlpha(),
+    body('apellido').isAlpha().notEmpty(),
+    body('email').isEmail().normalizeEmail().notEmpty(),
+    body('talla').isNumeric(),
+    (req, res) => {
+        // Extract the validation errors from a request.
+        const errors = validationResult(req);
+    
+        if (!errors.isEmpty()) {
+            // TODO: There are errors. Render form again with sanitized values/errors messages.
+            // Error messages can be returned in an array using `errors.array()`.
+            console.log(errors.array());
+            res.body.errors = errors.array();
+            res.render('admin', { errors, success: false });
+        } else {
+            // Data from form is valid.
+ 
+            let pedido = req.body;
+            var nuevoPedido = new Pedido({
+                num_pedido: pedido.num_pedido,
+                nombre: pedido.nombre,
+                apellido: pedido.apellido,
+                email: pedido.email,
+                buzon: pedido.buzon,
+                estatus: 'Depositado',
+                marca: pedido.marca,
+                modelo: pedido.modelo,
+                talla: pedido.talla,
+                comentario_cliente: pedido.comentario_cliente,
+                comentario_resolador: pedido.comentario_resolador,
+                material_suela: pedido.material_suela
+            });
+        
+            nuevoPedido.save((err, document) => {
+                if (err) return console.log(err);
+                console.log("Saved: " + document);
+            });
+            res.render('admin', { success: true });
+        }
+    })
 module.exports = router;
