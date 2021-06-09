@@ -76,8 +76,9 @@ router.post('/rastreo',
         }
     
     });
-router.get('/admin', (req, res) => {
-    res.render('admin');
+router.get('/admin', async (req, res) => {
+    var pedidos = await Pedidos.find();
+    res.render('admin', { pedidos });
 })
 
 router.post('/admin',

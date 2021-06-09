@@ -85,6 +85,17 @@
                     <div class="col"></div>
                 </div>
             </div>
+            <table>
+                <tr>
+                    <th></th>
+                </tr>
+                <% for( let i = 0; i < pedidos.length; i++ ) { %>
+                
+                    <tr>
+                        <td><%=pedidos[i].nombre%></td>
+                    </tr>
+                <% } %>
+            </table>
           
 </header>
 
