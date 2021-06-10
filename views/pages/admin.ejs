@@ -109,16 +109,16 @@
                             <td id="tal<%=i%>"><%=pedidos[i].talla%></td>
                             <td class="dropdown" id="est<%=i%>">
                                 <select class="estatus" name="estatus<%= i %>" id="estatus<%= i %>">
-                                <option <%= (pedidos[i].estatus == "Depositado") ? 'selected="selected"':"" %>  
-                                    value="Depositado">Depositado</option>
-                                <option <%= (pedidos[i].estatus == "Recibido") ? 'selected="selected"':"" %> 
-                                    value="Recibido">Recibido</option>
-                                <option <%= (pedidos[i].estatus == "En reparación") ? 'selected="selected"':"" %> 
-                                    value="En reparación">En reparación</option>
-                                <option <%= (pedidos[i].estatus == "Inspeccionado") ? 'selected="selected"':"" %> 
-                                    value="Inspeccionado">Inspeccionado</option>
-                                <option <%= (pedidos[i].estatus == "Entregado") ? 'selected="selected"':"" %> 
-                                    value="Entregado">Entregado</option>
+                                <option <%= (pedidos[i].estatus_paso == 0) ? 'selected':"" %>  
+                                    value="0">Depositado</option>
+                                <option <%= (pedidos[i].estatus_paso == 1) ? 'selected':"" %> 
+                                    value="1">Recibido</option>
+                                <option <%= (pedidos[i].estatus_paso == 2) ? 'selected':"" %> 
+                                    value="2">En reparación</option>
+                                <option <%= (pedidos[i].estatus_paso == 3) ? 'selected':"" %> 
+                                    value="3">Inspeccionado</option>
+                                <option <%= (pedidos[i].estatus_paso == 4) ? 'selected':"" %> 
+                                    value="4">Entregado</option>
                                 </select>
                             </td>
                         </tr>

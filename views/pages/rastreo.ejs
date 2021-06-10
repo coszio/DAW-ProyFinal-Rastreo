@@ -39,24 +39,53 @@
                  
                     <div class="col-lg-7 col-lg-offset-1 col-md-12">
                         <div class="container">
+                            <div class="row align-items-center" style="padding-top: 20px;padding-bottom: 20px;">
+                                <div class="col">
+                                    <p> <br> </p>
                             <ul class="progressbar">
-                              <li class="<%= (pedido.estatus == "Depositado") ? 'active':"" %>">Depositado</li>
-                              <li class="<%= (pedido.estatus == "Recibido") ? 'active':"" %>">Recibido</li>
-                              <li class="<%= (pedido.estatus == "En reparación") ? 'active':"" %>">En reparación</li>
-                              <li class="<%= (pedido.estatus == "Inspeccionados") ? 'active':"" %>">Inspeccionados</li>
-                              <li class="<%= (pedido.estatus == "Entregados") ? 'active':"" %>">Entregados</li>
+                              <li class="<%= (0 <= pedido.estatus_paso) ? 'active':"" %>">Depositado</li>
+                              <li class="<%= (1 <= pedido.estatus_paso) ? 'active':"" %>">Recibido</li>
+                              <li class="<%= (2 <= pedido.estatus_paso) ? 'active':"" %>">En reparación</li>
+                              <li class="<%= (3 <= pedido.estatus_paso) ? 'active':"" %>">Inspeccionado</li>
+                              <li class="<%= (4 <= pedido.estatus_paso) ? 'active':"" %>">Entregado</li>
                             </ul>
                           </div>
-                        <div class="text-bg">
-                            <p> </p>
+                          </div>
+                          </div>
+                        <div class="row text-bg" style="padding-top: 20px;padding-bottom: 20px;">
+                            <table class="table">
+                                <tr>
+                                    <th id="num_pedido"># de pedido</th>
+                                    <td><%= pedido.num_pedido %></td>
+                                </tr>
+                                <tr>
+                                    <th id="cliente">Cliente</th>
+                                    <td><%= `${pedido.nombre} ${pedido.apellido}` %></td>
+                                </tr>
+                                <tr>
+                                    <th id="zapatos">Zapatos</th>
+                                    <td><%= `${pedido.marca} ${pedido.modelo}` %></td>
+                                </tr>
+                                <tr>
+                                    <th id="talla">Talla</th>
+                                    <td><%= pedido.talla %></td>
+                                </tr>
+                                </table>
+
+                            <!-- </table>
+                            <p># de pedido: <%= pedido.num_pedido %> </p>
                             <p>Cliente: <%= `${pedido.nombre} ${pedido.apellido}` %> </p>
                             <p>Zapatos: <%= `${pedido.marca} ${pedido.modelo}` %> </p>
-                            <p>Talla: <%= pedido.talla %> </p>
-                            <p>Estatus: <%= pedido.estatus %> </p>
-                            <p>Estimado de entrega: <%# estimado %> </p>
+                            <p>Talla: <%= pedido.talla %> </p> -->
                         </div>
                     </div>
-                <% } %>
+                <% } else { %>
+                    <div class="col-lg-6 p-2">
+                        <div class="d-flex align-items-center">
+                            <p>Ingresa tu apellido y numero de pedido para realizar el seguimiento</p>
+                        </div>
+                    </div>
+                 <% } %> 
                 </div>
             </div>
           

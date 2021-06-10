@@ -117,13 +117,17 @@ router.post('/admin',
                 apellido: pedido.apellido,
                 email: pedido.email,
                 buzon: pedido.buzon,
-                estatus: 'Depositado',
+                estatus_paso: 0,
                 marca: pedido.marca,
                 modelo: pedido.modelo,
                 talla: pedido.talla,
                 comentario_cliente: pedido.comentario_cliente,
                 comentario_resolador: pedido.comentario_resolador,
-                material_suela: pedido.material_suela
+                material_suela: pedido.material_suela,
+                servicio: {
+                    cambio_de_liga: (pedido.servicioextra == 'cambio_de_liga'),
+                    parche: (pedido.servicioextra == 'parche')
+                }
             });
         
             nuevoPedido.save((err, document) => {

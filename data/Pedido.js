@@ -6,7 +6,23 @@ const pedidoSchema = new Schema({
     apellido: String,
     email: String,
     buzon: String,
-    estatus: String,
+    estatus_paso: {
+        type: Number,
+        default: 0
+    },
+    estatus: {
+        type: String,
+        get: a => {
+            switch (this.estatus_paso) {
+                case 0: return "Depositado"
+                case 1: return "Recibido"
+                case 2: return "En reparación"
+                case 3: return "Inspeccionado"
+                case 4: return "Entregado"
+                default: return "Depositado"
+            }
+        }
+    },
     marca: String,
     modelo: String,
     talla: String,
