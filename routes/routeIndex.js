@@ -77,10 +77,20 @@ router.post('/rastreo',
     
     });
 router.get('/admin', async (req, res) => {
-    var pedidos = await Pedidos.find();
+    var pedidos = await Pedido.find();
     res.render('admin', { pedidos });
 })
+router.post('/editar-estatus/:id/:estatus', async (req, res) => {
+    let id = req.params.id;
+    let estatus = req.params.estatus;
 
+    var pedido = await Pedido.findById(id);
+
+    pedido.estatus = estatus;
+
+    pedido.save();
+    res.redirect('/admin');
+})
 router.post('/admin',
     body('num_pedido', 'El numero de pedido debe tener 5 digitos').isAlphanumeric().isLength(5).notEmpty(),
     body('nombre').isAlpha(),

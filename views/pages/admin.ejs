@@ -31,21 +31,20 @@
 
             <div class="container-fluid padding_dd">
                 <div class="row">
-                 
-                    <div class="col"></div>
-                    <div class="col-lg-6 col-md-12">
+                    <div class="container">
+                    <div class="col-lg-12 col-md-12">
                         <div class="text-bg">
                             <h2>Nuevo Pedido</h2>
                         </div>
 
                         <form action="/admin" method="POST" class="Seguimiento">
-                            <input class="Seguimiento_fom" placeholder="Nombre" type="text" name="nombre">
-                            <input class="Seguimiento_fom" placeholder="Apellido" type="text" name="apellido">
-                            <input class="Seguimiento_fom" placeholder="Email" type="text" name="email">
+                            <input class="" placeholder="Nombre" type="text" name="nombre">
+                            <input class="" placeholder="Apellido" type="text" name="apellido">
+                            <input class="" placeholder="Email" type="text" name="email">
                             <br>
                             <br>
                             <h3 for="buzon">Buzón:</h3>
-                            <select class="nice-select Seguimiento_fom" name="buzon" id="buzon">
+                            <select class="nice-select " name="buzon" id="buzon">
                                 <option value="RockCamp">RockCamp</option>
                                 <option value="Sierra Elevation">Sierra Elevation</option>
                                 <option value="Pico Norte">Pico Norte</option>
@@ -55,24 +54,24 @@
                             <br>
                             <br>
                             <h3>Zapatos:</h3>
-                            <input class="Seguimiento_fom" placeholder="Marca" type="text" name="marca">
-                            <input class="Seguimiento_fom" placeholder="Modelo" type="text" name="modelo">
-                            <input class="Seguimiento_fom" placeholder="Talla EUR" type="text" name="talla">
-                            <input class="Seguimiento_fom" placeholder="# de pedido" type="text" name="num_pedido">
-                            <input class="Seguimiento_fom" placeholder="Comentario cliente" type="text" name="comentario_cliente">
-                            <input class="Seguimiento_fom" placeholder="Comentario resolador" type="text" name="comentario_resolador">
+                            <input class="" placeholder="Marca" type="text" name="marca">
+                            <input class="" placeholder="Modelo" type="text" name="modelo">
+                            <input class="" placeholder="Talla EUR" type="text" name="talla">
+                            <input class="" placeholder="# de pedido" type="text" name="num_pedido">
+                            <input class="" placeholder="Comentario cliente" type="text" name="comentario_cliente">
+                            <input class="" placeholder="Comentario resolador" type="text" name="comentario_resolador">
                             <br>
                             <br>
                             <h3>Servicio:</h3>
                             <p for="material_suela">Material Suela:</p>
-                            <select class="Seguimiento_fom" id="material_suela" name="material_suela">
+                            <select class="" id="material_suela" name="material_suela">
                                 <option value="madrock">Mad Rock</option>
                                 <option value="davos">Davos</option>
                             </select>
                             <br>
-                            <p>
-                            <label><input type="checkbox" checked disabled class="Seguimiento_fom" name="resolado">Resolado</label>
-                            </p>
+                            
+                            <label><input type="checkbox" checked disabled class="" name="resolado">Resolado</label>
+                            
                             <p>
                                 Servicio Adicional:<br>
                                 <label><input type="radio" name="servicioextra" value="cambio_de_liga"> Cambio de liga</label><br>
@@ -82,20 +81,57 @@
                             <button class="Search_btn">Agregar</button>
                         </form>
                     </div>
-                    <div class="col"></div>
+                </div>
                 </div>
             </div>
-            <table>
+            <div class="container">
+                <div class="row">
+                <table class="table" id="pedidos">
+                <h3>Pedidos</h3>
+                <tbody>
                 <tr>
-                    <th></th>
+                    <th scope="col" id="hnum"># de Pedido</th>
+                    <th scope="col" id="hnombre">Nombre</th>
+		            <th scope="col" id="hapellido">Apellido</th>
+                    <th scope="col" id="hmarca">Marca</th>
+                    <th scope="col" id="hmodelo">Modelo</th>
+                    <th scope="col" id="htalla">Talla</th>
+                    <th scope="col" id="hestado">Estado</th>
                 </tr>
-                <% for( let i = 0; i < pedidos.length; i++ ) { %>
-                
-                    <tr>
-                        <td><%=pedidos[i].nombre%></td>
-                    </tr>
+                <% if (typeof pedidos != 'undefined') { %>
+                 
+                    <% for( let i = 0; i < pedidos.length; i++ ) { %>
+                        
+                        <tr>
+                            <td id="num<%=i%>"><%=pedidos[i].num_pedido%></td>
+                            <td id="ped<%=i%>"><%=pedidos[i].nombre%></td>
+                            <td id="ape<%=i%>"><%=pedidos[i].apellido%></td>
+                            <td id="mar<%=i%>"><%=pedidos[i].marca%></td>
+                            <td id="mod<%=i%>"><%=pedidos[i].modelo%></td>
+                            <td id="tal<%=i%>"><%=pedidos[i].talla%></td>
+                            <td class="dropdown" id="est<%=i%>">
+                                <select name="estatus<%= i %>" id="estatus<%= i %>">
+                                <option <% (pedidos[i].estatus == "Depositado") ? 'selected="selected"':"" %>  
+                                    value="Depositado">Depositado</option>
+                                <option <%= (pedidos[i].estatus == "Recibido") ? 'selected="selected"':"" %> 
+                                    value="Recibido">Recibido</option>
+                                <option <%= (pedidos[i].estatus == "En reparación") ? 'selected="selected"':"" %> 
+                                    value="En reparación">En reparación</option>
+                                <option <%= (pedidos[i].estatus == "Inspeccionado") ? 'selected="selected"':"" %> 
+                                    value="Inspeccionado">Inspeccionado</option>
+                                <option <%= (pedidos[i].estatus == "Entregado") ? 'selected="selected"':"" %> 
+                                    value="Entregado">Entregado</option>
+                                </select>
+                            </td>
+                        </tr>
+                    <% } %>
                 <% } %>
+                </tbody>
             </table>
+            </div>
+                                
+        </div>
+
           
 </header>
 
