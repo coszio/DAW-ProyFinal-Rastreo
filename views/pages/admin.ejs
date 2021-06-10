@@ -27,8 +27,6 @@
     
 
      <!-- end header -->
-     
-
             <div class="container-fluid padding_dd">
                 <div class="row">
                     <div class="container">
@@ -110,8 +108,8 @@
                             <td id="mod<%=i%>"><%=pedidos[i].modelo%></td>
                             <td id="tal<%=i%>"><%=pedidos[i].talla%></td>
                             <td class="dropdown" id="est<%=i%>">
-                                <select name="estatus<%= i %>" id="estatus<%= i %>">
-                                <option <% (pedidos[i].estatus == "Depositado") ? 'selected="selected"':"" %>  
+                                <select class="estatus" name="estatus<%= i %>" id="estatus<%= i %>">
+                                <option <%= (pedidos[i].estatus == "Depositado") ? 'selected="selected"':"" %>  
                                     value="Depositado">Depositado</option>
                                 <option <%= (pedidos[i].estatus == "Recibido") ? 'selected="selected"':"" %> 
                                     value="Recibido">Recibido</option>
@@ -145,3 +143,6 @@
 </body>
 
 </html>
+<script>
+
+</script>
