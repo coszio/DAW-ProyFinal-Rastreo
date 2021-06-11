@@ -2,6 +2,12 @@ const { render } = require('ejs');
 const { body, validationResult } = require('express-validator');
 const express = require('express');
 const router = express.Router();
+const crypto = require('crypto');
+
+const algorithm = 'aes-256-ctr';
+const secret = 'DAW-ProyFinal-Rastreo'
+const key = crypto.createHash('sha256').update(String(secret)).digest('base64').substr(0, 32);;
+const iv = crypto.randomBytes(16);
 
 var Pedido = require('../data/Pedido')
 
@@ -69,7 +75,9 @@ router.post('/rastreo',
                     console.log(err);
                     res.redirect('/rastreo');
                 } else {
-                    res.redirect('/rastreo/' + pedido._id);
+                    var cipher = crypto.createCipheriv(algorithm, key, iv);  
+                    var encrypted_id = cipher.update(pedido._id.toString(), 'utf8', 'hex') + cipher.final('hex');
+                    res.redirect('/rastreo/' + encrypted_id);
                 }
             });
             
@@ -77,7 +85,9 @@ router.post('/rastreo',
     
     });
 router.get('/admin', async (req, res) => {
-    var pedidos = await Pedido.find();
+    var decipher = crypto.createDecipheriv(algorithm, key, iv);
+    var decrypted = decipher.update(req.params.idPedido, 'hex', 'utf8') + decipher.final('utf8');
+    let pedido = await Pedido.findById(cryptr.decrypt(decrypted));
     res.render('admin', { pedidos });
 })
 router.post('/actualizar-estatus', async (req, res) => {
