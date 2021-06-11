@@ -183,7 +183,7 @@
         $(".ped-row").each((i,row) => {
             var datos = {};
             datos['num_pedido'] = $(row).children(".num").text();
-            datos['nombre'] = $(row).children(".nom").text();
+            datos['apellido'] = $(row).children(".ape").text();
             datos['estatus'] = $(row).children(".dropdown").find("option:selected").val();
             cambios.push(datos);
         });

@@ -86,19 +86,19 @@ router.post('/actualizar-estatus', async (req, res) => {
     cambios.forEach(async (row) => {
         try {
             var pedido = await Pedido.findOne({
-                num_pedido: row.num_pedido,
-                apellido: row.apellido
+                num_pedido: { $regex: `^${row.num_pedido}$`, '$options': 'i' },
+                apellido: { $regex: `^${row.apellido}$`, '$options': 'i' }
             });
-            console.log(pedido);
             pedido.estatus_paso = row.estatus;
             try {
                 await pedido.save();
             } catch {
-                console.log('failed update');
+                console.log('failed save');
                 res.send(false);
+                return
             }
         } catch (err) {
-            console.log('failed update');
+            console.log('failed find');
             res.send(false);
             return console.log(err);
         }
