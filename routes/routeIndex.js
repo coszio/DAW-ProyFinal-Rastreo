@@ -42,8 +42,10 @@ router.get('/rastreo', async(req, res) => {
     res.render('rastreo');
 });
 
-router.get('/rastreo/:idPedido', async (req, res) => {
-    let pedido = await Pedido.findById(req.params.idPedido);
+router.get('/rastreo/:idPedido', async (req, res) => {   
+    var decipher = crypto.createDecipheriv(algorithm, key, iv);
+    var decrypted = decipher.update(req.params.idPedido, 'hex', 'utf8') + decipher.final('utf8');
+    let pedido = await Pedido.findById(cryptr.decrypt(decrypted));
     res.render('rastreo', { pedido });
 })
 
@@ -85,9 +87,7 @@ router.post('/rastreo',
     
     });
 router.get('/admin', async (req, res) => {
-    var decipher = crypto.createDecipheriv(algorithm, key, iv);
-    var decrypted = decipher.update(req.params.idPedido, 'hex', 'utf8') + decipher.final('utf8');
-    let pedido = await Pedido.findById(cryptr.decrypt(decrypted));
+    var pedidos = await Pedido.find();
     res.render('admin', { pedidos });
 })
 router.post('/actualizar-estatus', async (req, res) => {
