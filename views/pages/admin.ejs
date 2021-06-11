@@ -35,7 +35,7 @@
                             <h2>Nuevo Pedido</h2>
                         </div>
 
-                        <form action="/admin" method="POST" class="Seguimiento">
+                        <form id="form-pedido" role="form" class="Seguimiento">
                             <input class="" placeholder="Nombre" type="text" name="nombre">
                             <input class="" placeholder="Apellido" type="text" name="apellido">
                             <input class="" placeholder="Email" type="text" name="email">
@@ -76,7 +76,7 @@
                                 <label><input type="radio" name="servicioextra" value="parche"> Parche</label><br>
                                 <label><input aria-checked="true" type="radio" name="servicioextra" value="ninguno"> Ninguno </label>
                             </p>
-                            <button class="Search_btn">Agregar</button>
+                            <button id="nuevo-pedido" class="Search_btn">Agregar</button>
                         </form>
                     </div>
                 </div>
@@ -84,6 +84,7 @@
             </div>
             <div class="container">
                 <div class="row">
+                    <button id="guardar-cambios">Guardar cambios</button>
                 <table class="table" id="pedidos">
                 <h3>Pedidos</h3>
                 <tbody>
@@ -100,13 +101,13 @@
                  
                     <% for( let i = 0; i < pedidos.length; i++ ) { %>
                         
-                        <tr>
-                            <td id="num<%=i%>"><%=pedidos[i].num_pedido%></td>
-                            <td id="ped<%=i%>"><%=pedidos[i].nombre%></td>
-                            <td id="ape<%=i%>"><%=pedidos[i].apellido%></td>
-                            <td id="mar<%=i%>"><%=pedidos[i].marca%></td>
-                            <td id="mod<%=i%>"><%=pedidos[i].modelo%></td>
-                            <td id="tal<%=i%>"><%=pedidos[i].talla%></td>
+                        <tr class="ped-row">
+                            <td class="num" id="num<%=i%>"><%=pedidos[i].num_pedido%></td>
+                            <td class="nom" id="nom<%=i%>"><%=pedidos[i].nombre%></td>
+                            <td class="ape" id="ape<%=i%>"><%=pedidos[i].apellido%></td>
+                            <td class="mar" id="mar<%=i%>"><%=pedidos[i].marca%></td>
+                            <td class="mod" id="mod<%=i%>"><%=pedidos[i].modelo%></td>
+                            <td class="tal" id="tal<%=i%>"><%=pedidos[i].talla%></td>
                             <td class="dropdown" id="est<%=i%>">
                                 <select class="estatus" name="estatus<%= i %>" id="estatus<%= i %>">
                                 <option <%= (pedidos[i].estatus_paso == 0) ? 'selected':"" %>  
@@ -144,5 +145,61 @@
 
 </html>
 <script>
+    (function($){
+        $.fn.getFormData = function(){
+          var data = {};
+          var dataArray = $(this).serializeArray();
+          for(var i=0;i<dataArray.length;i++){
+            data[dataArray[i].name] = dataArray[i].value;
+          }
+          return data;
+        }
+      })(jQuery);
 
+    $("#nuevo-pedido").click((e) => {
+        e.preventDefault();
+        var nuevo_pedido = $("#form-pedido").getFormData();
+        console.log(nuevo_pedido);
+
+        $.ajax({
+            url: "/admin",
+            method: "post",
+            data: nuevo_pedido,
+            success: (hasCompleted) => {
+                if (hasCompleted) {
+                    alert("Se ha agregado el nuevo pedido");
+                } else {
+                    
+                    alert("Hubo un error al guardar el nuevo pedido");
+                }
+            }
+        })
+
+    })
+    $("#guardar-cambios").on('click', () => {
+
+        var cambios = [];
+
+        $(".ped-row").each((i,row) => {
+            var datos = {};
+            datos['num_pedido'] = $(row).children(".num").text();
+            datos['nombre'] = $(row).children(".nom").text();
+            datos['estatus'] = $(row).children(".dropdown").find("option:selected").val();
+            cambios.push(datos);
+        });
+
+        $.ajax({
+            type: 'post',
+            url: "/actualizar-estatus", 
+            contentType: 'application/json',
+            data: JSON.stringify(cambios),
+            success: (saved) => {
+                if (saved) {
+                    alert("Se han guardado los estatus")
+                } else {
+                    alert('Ocurrió un error al actualizar los estatus')
+                }
+            }            
+        })
+    })
 </script>

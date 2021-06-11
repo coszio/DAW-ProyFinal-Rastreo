@@ -80,16 +80,31 @@ router.get('/admin', async (req, res) => {
     var pedidos = await Pedido.find();
     res.render('admin', { pedidos });
 })
-router.post('/editar-estatus/:id/:estatus', async (req, res) => {
-    let id = req.params.id;
-    let estatus = req.params.estatus;
-
-    var pedido = await Pedido.findById(id);
-
-    pedido.estatus = estatus;
-
-    pedido.save();
-    res.redirect('/admin');
+router.post('/actualizar-estatus', async (req, res) => {
+    var cambios = req.body;
+    console.log(cambios)
+    cambios.forEach(async (row) => {
+        try {
+            var pedido = await Pedido.findOne({
+                num_pedido: row.num_pedido,
+                apellido: row.apellido
+            });
+            console.log(pedido);
+            pedido.estatus_paso = row.estatus;
+            try {
+                await pedido.save();
+            } catch {
+                console.log('failed update');
+                res.send(false);
+            }
+        } catch (err) {
+            console.log('failed update');
+            res.send(false);
+            return console.log(err);
+        }
+    });
+    
+    res.send(true);
 })
 router.post('/admin',
     body('num_pedido', 'El numero de pedido debe tener 5 digitos').isAlphanumeric().isLength(5).notEmpty(),
@@ -97,7 +112,7 @@ router.post('/admin',
     body('apellido').isAlpha().notEmpty(),
     body('email').isEmail().normalizeEmail().notEmpty(),
     body('talla').isNumeric(),
-    (req, res) => {
+    async (req, res) => {
         // Extract the validation errors from a request.
         const errors = validationResult(req);
     
@@ -105,11 +120,10 @@ router.post('/admin',
             // TODO: There are errors. Render form again with sanitized values/errors messages.
             // Error messages can be returned in an array using `errors.array()`.
             console.log(errors.array());
-            res.body.errors = errors.array();
-            res.render('admin', { errors, success: false });
+            res.send(false);
         } else {
+            
             // Data from form is valid.
- 
             let pedido = req.body;
             var nuevoPedido = new Pedido({
                 num_pedido: pedido.num_pedido,
@@ -130,11 +144,17 @@ router.post('/admin',
                 }
             });
         
-            nuevoPedido.save((err, document) => {
-                if (err) return console.log(err);
+            nuevoPedido.save(async (err, document) => {
+                if (err) {
+                    res.send(false);
+                    return console.log(err);
+                }
                 console.log("Saved: " + document);
+
+                // recargar pagina con pedidos actualizados
+                var pedidos = await Pedido.find();
+                res.send( true );
             });
-            res.render('admin', { success: true });
         }
     })
 module.exports = router;
