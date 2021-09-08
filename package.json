@@ -1,0 +1,27 @@
+{
+  "name": "proyfinal",
+  "version": "1.0.0",
+  "description": "Este repositorio corresponde al proyecto final de la clase de desarrollo de aplicaciones web con el profesor Jorge Luis Flores Marroquín durante el semestre de febrero a junio de 2021 en el Tecnológico de Monterrey.\r Nuestro equipo está conformado por Luis Cossío Ramírez, Javier Alejandro Domene Reyes y Javier Sánchez Vázquez de Mercado.\r Para nuestro proyecto final, decidimos crear un sistema de rastreo para pedidos de resolado de zapatos que muestre el estado actual de cada uno de los pedidos.",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.1",
+    "mongoose": "^6.0.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coszio/DAW-ProyFinal-Rastreo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coszio/DAW-ProyFinal-Rastreo/issues"
+  },
+  "homepage": "https://github.com/coszio/DAW-ProyFinal-Rastreo#readme"
+}

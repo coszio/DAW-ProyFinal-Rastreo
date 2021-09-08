@@ -1,4 +1,4 @@
-var mongoose = require("mongoose")
+var mongoose = require("mongoose");
 
 var connection = "mongodb://localhost:27017/drgatas";
 
