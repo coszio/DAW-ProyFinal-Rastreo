@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 const algorithm = 'aes-256-ctr';
 const secret = 'DAW-ProyFinal-Rastreo'
-const key = crypto.createHash('sha256').update(String(secret)).digest('base64').substr(0, 32);;
+const key = crypto.createHash('sha256').update(String(secret)).digest('base64').substr(0, 32);
 const iv = crypto.randomBytes(16);
 
 var Pedido = require('../data/Pedido')
@@ -43,7 +43,9 @@ router.get('/rastreo', async(req, res) => {
 });
 
 router.get('/rastreo/:idPedido', async (req, res) => {
-    let pedido = await Pedido.findById(req.params.idPedido);
+    var decipher = crypto.createDecipheriv(algorithm, key, iv);
+    var decrypted = decipher.update(req.params.idPedido, "hex", "utf8") + decipher.final("utf8");
+    let pedido = await Pedido.findById(decrypted);
     res.render('rastreo', { pedido });
 })
 
@@ -51,8 +53,6 @@ router.post('/rastreo',
     body('apellido').not().isEmpty().withMessage('Debe tener apellido'),
     body('pedido').not().isEmpty().withMessage('Debe tener numero de pedido'),
     body('pedido').isLength(5).withMessage('Debe tener 5 caracteres'),
-    // body('apellido').toUpperCase(),
-    // body('pedido').toUpperCase(),
     async (req, res) => {
         // Extract the validation errors from a request.
         const errors = validationResult(req);
@@ -85,9 +85,7 @@ router.post('/rastreo',
     
     });
 router.get('/admin', async (req, res) => {
-    var decipher = crypto.createDecipheriv(algorithm, key, iv);
-    var decrypted = decipher.update(req.params.idPedido, 'hex', 'utf8') + decipher.final('utf8');
-    let pedido = await Pedido.findById(cryptr.decrypt(decrypted));
+    var pedidos = await Pedido.find();
     res.render('admin', { pedidos });
 })
 router.post('/actualizar-estatus', async (req, res) => {
